@@ -1,6 +1,6 @@
 import { React } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-web';
+import { StyleSheet, Text, View,TextInput, TouchableOpacity } from 'react-native';
+import Tempo from './components/Tempo';
 
 export default function App() {
   return (
@@ -18,12 +18,12 @@ export default function App() {
         />
       </View>
 
-      <View>
+      <View style={styles.blocoGeral}>
         <TouchableOpacity style={styles.botao}>
           <Text style={styles.textoBloco}>Procurar</Text>
         </TouchableOpacity>
       </View>
-
+    <Tempo/>
     </View>
   );
 }
@@ -38,14 +38,15 @@ const styles = StyleSheet.create({
   bloco: {
     alignItems: 'center',
     justifyContent: 'center',
-	  width: '60%',
+	  width: '55%',
+    height: '5%',
 	  backgroundColor: '#C6DCE4',
     borderRadius: 5,
     },
 
     textobloco: {
       color: '#fff',
-      fontSize: 20,
+      fontSize: 45,
       padding: 20,
     },
   
@@ -55,7 +56,11 @@ const styles = StyleSheet.create({
   
     textobotao:{
       color: '#fff',
-      fontSize: 25,
-  
+      fontSize: 27,
     },
+    blocoGeral:{
+      width: '30%',	
+	    color: '#607EAA',
+	    borderBottomWidth:1,
+    }
   }); 
