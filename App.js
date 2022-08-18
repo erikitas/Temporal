@@ -1,8 +1,18 @@
 import { React } from 'react';
-import { StyleSheet, Text, View,TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput, TouchableOpacity } 
+from 'react-native';
 import Tempo from './components/Tempo';
+import Api from './components/Api';
 
 export default function App() {
+  const [dados, setDados] = useState();
+  const [cidade, setCidade] = useState();
+
+  async function buscaCep(){
+    const resposta= await Api.get('weather?array_limit=1&fields=only_results,temp,city_name,description,forecast,max,min,date&key=11568a6c&city_name=CapaoRedondo,SP');
+    setDados(resposta.data.forecast[0]);
+  }
+
   return (
     <View style={styles.container}>
   
@@ -11,10 +21,11 @@ export default function App() {
       </View>
   
       <View>
-        <Text>Cidade:</Text>
+        <Text style={styles.cidade}>Cidade:</Text>
         <TextInput
           placeholder='Digite sua cidade'
           style={styles.input}
+          onKeyPress={buscaCep}
         />
       </View>
 
@@ -23,7 +34,7 @@ export default function App() {
           <Text style={styles.textoBloco}>Procurar</Text>
         </TouchableOpacity>
       </View>
-    <Tempo/>
+    <Tempo data={dados}/>
     </View>
   );
 }
@@ -49,6 +60,9 @@ const styles = StyleSheet.create({
       fontSize: 45,
       padding: 20,
     },
+    input:{
+      fontSize: 15,
+    },
   
     botao: {
       padding: 20 ,
@@ -61,6 +75,5 @@ const styles = StyleSheet.create({
     blocoGeral:{
       width: '30%',	
 	    color: '#607EAA',
-	    borderBottomWidth:1,
     }
   }); 
