@@ -5,12 +5,16 @@ import Tempo from './components/Tempo';
 import Api from './components/Api';
 
 export default function App() {
-  const [cidade, setCidade] = useState("peruibe");
-  const [dados, setDados] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [dadosA, setDadosA] = useState("");
+  const [dadosB, setDadosB] = useState("");
+
 
   async function buscaCep(){
     const response = await Api.get(`weather?array_limit=2&fields=only_results,temp,city_name,forecast,max,min,date,description&key=11568a6c&city_name=${cidade},SP`);
-    setDados(response.data.forecast[0]);
+    setDadosA(response.data.forecast[0]);
+    setDadosB(response.data.forecast[1]);
+
   }
 
   return (
@@ -26,7 +30,7 @@ export default function App() {
         <TextInput
           placeholder='Digite sua cidade'
           style={styles.input}
-          onChangeText={(value)=>setCidade(value)}
+          onChangeText={data=>setCidade(data)}
         />
       </View>
 
@@ -34,10 +38,13 @@ export default function App() {
           <Text style={styles.textoBotao}>Procurar</Text>
         </TouchableOpacity> 
 
-      </View>
-    <Tempo data={dados}/> 
+    <Tempo dataA={dadosA}
+            dataB={dadosB}
+      /> 
        </View>
     </View>
+  </View>
+
   );
 }
 
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
   bloco: {
     alignItems: 'center',
     justifyContent: 'center',
-	  width: 300,
+	  width: 320,
 	  backgroundColor: '#92A9BD',
     borderRadius: 5,
     },
@@ -62,6 +69,9 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: "#1C3879",
     },
+    cidade: {
+        fontSize: 16,
+    },
 
     textobloco: {
       color: '#fff',
@@ -69,7 +79,7 @@ const styles = StyleSheet.create({
 		  padding: 20,
     },
     input:{
-        width: '80%',	
+        width: '100%',	
         color: '#fff',
         borderBottomWidth:1,
     },
